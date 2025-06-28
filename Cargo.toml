@@ -1,0 +1,27 @@
+[package]
+name = "bias_fx_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "bias_fx_rust"
+crate-type = ["cdylib"]
+
+[[bin]]
+name = "bias_fx_control"
+path = "src/main.rs"
+
+[dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+nih_plug_vizia = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+fundsp = "0.17"
+atomic_float = "1.0"
+realfft = "3.3"
+eframe = "0.28"
+egui = "0.28"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+panic = "abort"

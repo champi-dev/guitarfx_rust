@@ -1,0 +1,63 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo lock file (uncomment if this is a library)
+# Cargo.lock
+
+# VST3 plugin bundles
+*.vst3/
+*.clap/
+
+# Audio test files
+*.wav
+*.aiff
+*.flac
+*.mp3
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Plugin development
+*.so
+*.dll
+*.dylib
+
+# Profiling and debugging
+flamegraph.svg
+perf.data*
+callgrind.out.*
+
+# Documentation build
+/docs/book/
+
+# Backup files
+*.bak
+*.backup
