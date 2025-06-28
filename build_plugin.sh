@@ -5,6 +5,7 @@
 
 echo "🎸 Building BIAS FX Rust - Professional Guitar VST Plugin"
 echo "🦀 Using functional programming for O(1) real-time performance"
+echo "🔊 Features professional cabinet simulation with impulse response convolution"
 
 # Build optimized release version
 echo "⚡ Building optimized release..."
@@ -64,4 +65,9 @@ echo "   mkdir -p ~/.vst3"
 echo "   cp -r \"${VST3_DIR}\" ~/.vst3/"
 echo ""
 echo "🎸 Ready to use in REAPER and other Linux DAWs!"
-echo "⚡ Features O(1) functional DSP processing for professional performance"
+echo "⚡ Features:"
+echo "   • O(1) functional DSP processing for professional performance"
+echo "   • Partitioned FFT convolution for cabinet simulation (256-sample blocks)"
+echo "   • 4 professional cabinet types: Marshall V30, Fender Twin, Vox AC30, Mesa Recto"
+echo "   • Real-time cabinet switching with seamless parameter automation"
+echo "   • 256-sample latency for low-latency monitoring"

@@ -1,4 +1,5 @@
 use nih_plug::prelude::*;
+use crate::dsp::CabinetType;
 
 #[derive(Params)]
 pub struct GuitarFxParams {
@@ -25,6 +26,14 @@ pub struct GuitarFxParams {
     /// Output gain with smooth parameter changes
     #[id = "output_gain"]
     pub output_gain: FloatParam,
+    
+    /// Cabinet type selection for professional speaker simulation
+    #[id = "cabinet_type"]
+    pub cabinet_type: EnumParam<CabinetType>,
+    
+    /// Cabinet wet/dry mix for blending direct and cabinet-processed signal
+    #[id = "cabinet_mix"]
+    pub cabinet_mix: FloatParam,
 }
 
 impl Default for GuitarFxParams {
@@ -88,6 +97,21 @@ impl Default for GuitarFxParams {
             .with_unit(" dB")
             .with_value_to_string(formatters::v2s_f32_gain_to_db(2))
             .with_string_to_value(formatters::s2v_f32_gain_to_db()),
+            
+            cabinet_type: EnumParam::new(
+                "Cabinet",
+                CabinetType::Marshall4x12V30
+            ),
+            
+            cabinet_mix: FloatParam::new(
+                "Cabinet Mix",
+                1.0,
+                FloatRange::Linear { min: 0.0, max: 1.0 }
+            )
+            .with_smoother(SmoothingStyle::Linear(10.0))
+            .with_unit("%")
+            .with_value_to_string(formatters::v2s_f32_percentage(1))
+            .with_string_to_value(formatters::s2v_f32_percentage()),
         }
     }
 }

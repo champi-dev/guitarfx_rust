@@ -4,6 +4,9 @@ use std::sync::Arc;
 mod dsp;
 mod parameters;
 
+#[cfg(test)]
+mod test_ir;
+
 use dsp::GuitarFxProcessor;
 use parameters::GuitarFxParams;
 
@@ -46,9 +49,14 @@ impl Plugin for GuitarFx {
         &mut self,
         _audio_io_layout: &AudioIOLayout,
         buffer_config: &BufferConfig,
-        _context: &mut impl InitContext<Self>,
+        context: &mut impl InitContext<Self>,
     ) -> bool {
         self.processor.initialize(buffer_config.sample_rate);
+        
+        // Report processing latency to host for proper delay compensation
+        let latency_samples = self.processor.get_latency();
+        context.set_latency_samples(latency_samples as u32);
+        
         true
     }
 
@@ -66,9 +74,14 @@ impl Plugin for GuitarFx {
             let bass = self.params.bass.smoothed.next();
             let mid = self.params.mid.smoothed.next();
             let treble = self.params.treble.smoothed.next();
+            let cabinet_type = self.params.cabinet_type.value();
+            let cabinet_mix = self.params.cabinet_mix.smoothed.next();
             
             // Update tone controls - O(1) per-sample update
             self.processor.update_tone_controls(bass, mid, treble);
+            
+            // Update cabinet parameters - O(1) for mix, expensive for type change
+            self.processor.update_cabinet(cabinet_type, cabinet_mix);
             
             // Apply functional DSP chain
             for sample in channel_samples {

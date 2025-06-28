@@ -17,6 +17,7 @@ nih_plug_vizia = { git = "https://github.com/robbert-vdh/nih-plug.git" }
 fundsp = "0.17"
 atomic_float = "1.0"
 realfft = "3.3"
+num-complex = "0.4"
 eframe = "0.28"
 egui = "0.28"
 
